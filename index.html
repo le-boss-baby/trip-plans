@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#09090b" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Минск" />
+  <title>Минск · программа поездки</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --color-background-primary: rgba(255,255,255,.08);
+      --color-background-secondary: rgba(255,255,255,.06);
+      --color-background-info: rgba(59,130,246,.14);
+      --color-background-success: rgba(34,197,94,.16);
+      --color-background-warning: rgba(245,158,11,.16);
+      --color-background-danger: rgba(244,63,94,.16);
+      --color-border-tertiary: rgba(255,255,255,.14);
+      --color-text-primary: #f8fafc;
+      --color-text-secondary: #cbd5e1;
+      --color-text-tertiary: #94a3b8;
+      --color-text-info: #93c5fd;
+      --color-text-success: #86efac;
+      --color-text-warning: #fcd34d;
+      --color-text-danger: #fda4af;
+      --border-radius-md: 14px;
+      --border-radius-lg: 24px;
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --safe-top: env(safe-area-inset-top, 0px);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;background:#09090b}
+    body{min-height:100svh;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--color-text-primary);background:#09090b;overflow-x:hidden}
+    body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 18% 10%,rgba(59,130,246,.28),transparent 26rem),radial-gradient(circle at 86% 18%,rgba(168,85,247,.2),transparent 24rem),linear-gradient(to bottom,rgba(9,9,11,.2),#09090b 75%);z-index:-3}
+    body:after{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:48px 48px;mask-image:linear-gradient(to bottom,black,transparent 78%);z-index:-2}
+    .beam{position:fixed;inset:auto auto 12% 50%;width:70vw;height:70vw;max-width:900px;max-height:900px;transform:translateX(-50%);background:conic-gradient(from 90deg,transparent,rgba(59,130,246,.16),transparent,rgba(168,85,247,.16),transparent);filter:blur(70px);opacity:.75;z-index:-1;animation:spin 18s linear infinite}@keyframes spin{to{transform:translateX(-50%) rotate(1turn)}}
+    .app{width:min(1180px,100%);margin:0 auto;padding:calc(22px + var(--safe-top)) clamp(16px,4vw,48px) calc(96px + var(--safe-bottom))}
+    .hero{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.14);border-radius:32px;padding:clamp(24px,6vw,56px);background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.045));box-shadow:0 24px 80px rgba(0,0,0,.35);backdrop-filter:blur(18px)}
+    .hero:before{content:"";position:absolute;inset:-1px;background:linear-gradient(120deg,transparent,rgba(255,255,255,.22),transparent);transform:translateX(-75%);animation:shine 7s ease-in-out infinite}@keyframes shine{50%,100%{transform:translateX(75%)}}
+    .kicker{display:inline-flex;gap:8px;align-items:center;font-size:13px;color:#bfdbfe;border:1px solid rgba(147,197,253,.3);background:rgba(59,130,246,.1);padding:8px 12px;border-radius:999px;margin-bottom:18px;position:relative}
+    h1{font-size:clamp(36px,8vw,82px);line-height:.95;letter-spacing:-.075em;max-width:850px;position:relative}
+    .lead{max-width:760px;margin-top:18px;color:#cbd5e1;font-size:clamp(16px,2.2vw,20px);line-height:1.6;position:relative}
+    .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:26px;position:relative}.stat{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.055);border-radius:20px;padding:14px}.stat b{display:block;font-size:20px}.stat span{font-size:12px;color:#94a3b8}
+    .dock{position:sticky;top:8px;z-index:10;margin:18px 0;display:flex;gap:8px;overflow:auto;padding:8px;border:1px solid rgba(255,255,255,.1);border-radius:999px;background:rgba(9,9,11,.72);backdrop-filter:blur(18px);scrollbar-width:none}.dock::-webkit-scrollbar{display:none}.dock a{white-space:nowrap;text-decoration:none;color:#cbd5e1;font-size:13px;padding:9px 14px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}.dock a:hover{color:white;background:rgba(255,255,255,.12)}
+    .program-shell{display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
+    .day{position:relative;border:1px solid rgba(255,255,255,.13);border-radius:var(--border-radius-lg);margin:0;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.04));box-shadow:0 18px 50px rgba(0,0,0,.22);backdrop-filter:blur(16px)}
+    .day:after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(500px circle at var(--x,50%) var(--y,0%),rgba(255,255,255,.12),transparent 36%)}
+    .dh{display:flex;align-items:center;gap:14px;padding:16px;border-bottom:1px solid rgba(255,255,255,.1)}.db{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;line-height:1.16;text-align:center}.dt{font-size:17px;font-weight:700;color:var(--color-text-primary)}.ds{font-size:13px;color:var(--color-text-secondary);margin-top:3px;line-height:1.4}
+    .body{padding:4px 16px 8px}.slot{display:grid;grid-template-columns:54px 24px minmax(0,1fr);gap:10px;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.09);align-items:flex-start}.slot:last-child{border-bottom:none}.st{font-size:12px;color:var(--color-text-tertiary);padding-top:3px;font-weight:600}.si{font-size:19px;color:#93c5fd;text-align:center;padding-top:1px}.sm{min-width:0}.sn{font-size:15px;font-weight:700;color:var(--color-text-primary);line-height:1.35}.sd{font-size:13px;color:var(--color-text-secondary);margin-top:4px;line-height:1.55}.cost{font-size:12px;color:var(--color-text-tertiary);margin-top:5px;line-height:1.45}
+    .contacts{margin-top:8px;display:flex;flex-wrap:wrap;gap:7px}.ctag,.maplink{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:7px 10px;border-radius:999px;text-decoration:none;border:1px solid rgba(255,255,255,.12);transition:.2s transform,.2s background,.2s border-color}.ctag{background:rgba(255,255,255,.07);color:#dbeafe}.maplink{background:rgba(59,130,246,.14);color:#bfdbfe;margin-top:0}.ctag:hover,.maplink:hover{transform:translateY(-1px);background:rgba(255,255,255,.13);border-color:rgba(255,255,255,.24)}.ctag i,.maplink i{font-size:15px}
+    .badge{display:inline-block;font-size:10px;font-weight:800;padding:3px 8px;border-radius:999px;margin-left:5px;vertical-align:middle;text-transform:uppercase;letter-spacing:.04em}.b-free{background:var(--color-background-success);color:var(--color-text-success)}.b-tip{background:var(--color-background-warning);color:var(--color-text-warning)}.b-act{background:var(--color-background-info);color:var(--color-text-info)}
+    .budget-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:1rem 0}.bc{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:14px}.bl{font-size:12px;color:var(--color-text-tertiary);margin-bottom:6px}.bv{font-size:18px;font-weight:800;color:var(--color-text-primary)}.bs{font-size:12px;color:var(--color-text-tertiary);margin-top:4px}.total{background:linear-gradient(135deg,rgba(59,130,246,.18),rgba(168,85,247,.14));border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:18px;display:flex;justify-content:space-between;align-items:center;gap:14px}.tl{font-size:14px;color:var(--color-text-secondary)}.tv{font-size:clamp(24px,4vw,34px);font-weight:900;color:var(--color-text-primary)}
+    .program-shell>p{font-size:18px!important;font-weight:800!important;color:white!important;margin:26px 0 0!important}
+    @media (min-width: 900px){.program-shell{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}.program-shell>p,.budget-grid,.total,.program-shell>p+div+div,.program-shell>p+div+div+p{grid-column:1/-1}.day:nth-of-type(4),.day:nth-of-type(6){grid-row:span 2}}
+    @media (max-width: 520px){.app{padding-left:12px;padding-right:12px}.hero{border-radius:26px;padding:24px 18px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.slot{grid-template-columns:45px 21px minmax(0,1fr);gap:8px}.body{padding-left:12px;padding-right:12px}.dh{padding:14px 12px}.contacts a{width:100%;justify-content:center}.total{align-items:flex-start;flex-direction:column}}
+  </style>
+</head>
+<body>
+  <div class="beam" aria-hidden="true"></div>
+  <main class="app">
+    <header class="hero">
+      <div class="kicker"><i class="ti ti-sparkles"></i> Aceternity UI · responsive travel mini-app</div>
+      <h1>Минск на неделю</h1>
+      <p class="lead">Интерактивная программа поездки с маршрутами, телефонами, сайтами, бюджетом и адаптацией под последние iPhone и Mac.</p>
+      <div class="stats" aria-label="Краткая сводка">
+        <div class="stat"><b>8 дней</b><span>4–11 июля</span></div>
+        <div class="stat"><b>55–80 тыс. ₽</b><span>комфортно на двоих</span></div>
+        <div class="stat"><b>30+ ссылок</b><span>маршруты и контакты</span></div>
+        <div class="stat"><b>PWA-ready</b><span>можно добавить на экран</span></div>
+      </div>
+    </header>
+    <nav class="dock" aria-label="Навигация по дням">
+      <a href="#day-4">4 июл</a><a href="#day-5">5 июл</a><a href="#day-6">6 июл</a><a href="#day-7">7 июл</a><a href="#day-8">8 июл</a><a href="#day-9">9 июл</a><a href="#day-10">10 июл</a><a href="#day-11">11 июл</a><a href="#budget">Бюджет</a>
+    </nav>
+    <section class="program-shell">
+
+<!-- 4 июля -->
+<div class="day">
+  <div class="dh">
+    <div class="db" style="background:var(--color-background-secondary);color:var(--color-text-secondary)">4 июл<br>Пт</div>
+    <div><div class="dt">Прилёт и первый вечер</div><div class="ds">Спокойно добраться, заселиться, погулять налегке</div></div>
+  </div>
+  <div class="body">
+    <div class="slot">
+      <span class="st">11:15</span><i class="ti ti-plane-arrival si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Прилёт в Минск-Национальный</div>
+        <div class="sd">Аэропорт в 42 км от центра. Получить багаж, обменять немного рублей у стоек или найти банкомат БелВЭБ/БПС прямо в терминале.</div>
+        <div class="cost">Яндекс Go до квартиры: ~30–35 BYN (~950 ₽). Экономнее: автобус 300Э до ст. м. Могилёвская — 2–3 BYN, потом метро.</div>
+        <div class="contacts">
+          <a class="ctag" href="https://go.yandex/" target="_blank" rel="noopener noreferrer"><i class="ti ti-car"></i>Яндекс Go</a>
+          <a class="ctag" href="https://yandex.by/maps/?rtext=53.882038,28.038025~53.910724,27.518821&rtt=auto" target="_blank" rel="noopener noreferrer"><i class="ti ti-map-pin"></i>Маршрут аэропорт → квартира</a>
+        </div>
+      </div>
+    </div>
+    <div class="slot">
+      <span class="st">13:30</span><i class="ti ti-home si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Заселение — Скрыганова 4А</div>
+        <div class="sd">Разложиться, отдохнуть. До Пушкинской метро пешком ~12 мин.</div>
+      </div>
+    </div>
+    <div class="slot">
+      <span class="st">17:00</span><i class="ti ti-walk si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Первая прогулка — Троицкое предместье и набережная</div>
+        <div class="sd">Метро Пушкинская → Немига (2 остановки). Пешком по набережной Свислочи, Остров Слёз, кофе у реки. Без спешки.</div>
+        <div class="cost">Метро 0,9 BYN × 2 (~50 ₽)</div>
+        <div class="contacts">
+          <a class="maplink" href="https://yandex.by/maps/?rtext=53.910724,27.518821~53.907405,27.556254&rtt=mt" target="_blank" rel="noopener noreferrer"><i class="ti ti-map-2"></i>Маршрут: дом → Троицкое предместье</a>
+        </div>
+      </div>
+    </div>
+    <div class="slot">
+      <span class="st">20:00</span><i class="ti ti-beer si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Лёгкий ужин и первый вечер — Зыбицкая</div>
+        <div class="sd">Крафтовый Чапскi или «Дэпо №2». Не шиковать — просто познакомиться с улицей.</div>
+        <div class="cost">~20–25 BYN на двоих (~650 ₽)</div>
+        <div class="contacts">
+          <a class="maplink" href="https://yandex.by/maps/?rtext=53.907405,27.556254~53.906336,27.557619&rtt=pd" target="_blank" rel="noopener noreferrer"><i class="ti ti-map-2"></i>Набережная → Зыбицкая</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 5 июля -->
+<div class="day">
+  <div class="dh">
+    <div class="db" style="background:var(--color-background-info);color:var(--color-text-info)">5 июл<br>Сб</div>
+    <div><div class="dt">Исторический центр</div><div class="ds">Верхний город, Ворота, Раковский бровар, Зыбицкая</div></div>
+  </div>
+  <div class="body">
+    <div class="slot">
+      <span class="st">10:00</span><i class="ti ti-building-arch si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Верхний город и Ратуша</div>
+        <div class="sd">Площадь Свободы, Кафедральный костёл Девы Марии, Собор Святого Духа. Пешком от Немиги.</div>
+        <div class="cost">Вход бесплатно <span class="badge b-free">free</span></div>
+        <div class="contacts">
+          <a class="maplink" href="https://yandex.by/maps/?rtext=53.910724,27.518821~53.903542,27.556076&rtt=mt" target="_blank" rel="noopener noreferrer"><i class="ti ti-map-2"></i>Дом → Верхний город</a>
+        </div>
+      </div>
+    </div>
+    <div class="slot">
+      <span class="st">12:00</span><i class="ti ti-door-enter si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Ворота Минска у вокзала</div>
+        <div class="sd">Сталинские башни 1953 года. Лучший вид — от привокзальной площади.</div>
+        <div class="cost">Бесплатно, метро до Площади Ленина</div>
+        <div class="contacts">
+          <a class="maplink" href="https://yandex.by/maps/?rtext=53.903542,27.556076~53.892003,27.551508&rtt=mt" target="_blank" rel="noopener noreferrer"><i class="ti ti-map-2"></i>Верхний город → Ворота Минска</a>
+        </div>
+      </div>
+    </div>
+    <div class="slot">
+      <span class="st">13:30</span><i class="ti ti-bowl si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Обед — Раковский бровар</div>
+        <div class="sd">Белорусская кухня и живое пиво. С 20:00 живая музыка. Стол лучше бронировать заранее.</div>
+        <div class="cost">~35–45 BYN на двоих (~1 100 ₽)</div>
+        <div class="contacts">
+          <a class="ctag" href="https://brovar.by" target="_blank" rel="noopener noreferrer"><i class="ti ti-world"></i>brovar.by</a>
+          <a class="ctag" href="tel:+375447339339"><i class="ti ti-phone"></i>+375 44 733-93-39</a>
+          <a class="maplink" href="https://yandex.by/maps/?rtext=53.892003,27.551508~53.904500,27.552800&rtt=pd" target="_blank" rel="noopener noreferrer"><i class="ti ti-map-2"></i>Ворота → Раковский бровар</a>
+        </div>
+      </div>
+    </div>
+    <div class="slot">
+      <span class="st">15:30</span><i class="ti ti-road si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Прогулка по проспекту Независимости</div>
+        <div class="sd">От Октябрьской площади вверх через парк Горького. Главная имперская улица города.</div>
+        <div class="contacts">
+          <a class="maplink" href="https://yandex.by/maps/?rtext=53.903675,27.561892~53.923405,27.535863&rtt=pd" target="_blank" rel="noopener noreferrer"><i class="ti ti-map-2"></i>Октябрьская пл. → парк Горького</a>
+        </div>
+      </div>
+    </div>
+    <div class="slot">
+      <span class="st">20:00</span><i class="ti ti-music si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Вечер на Зыбицкой</div>
+        <div class="sd">Барсук, «На Пляже», Mad Rabbit. Пиво от 5 BYN, коктейли от 10 BYN.</div>
+        <div class="cost">~30 BYN на двоих (~840 ₽)</div>
+        <div class="contacts">
+          <a class="maplink" href="https://yandex.by/maps/?rtext=53.923405,27.535863~53.906336,27.557619&rtt=mt" target="_blank" rel="noopener noreferrer"><i class="ti ti-map-2"></i>Парк → Зыбицкая</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 6 июля -->
+<div class="day">
+  <div class="dh">
+    <div class="db" style="background:var(--color-background-info);color:var(--color-text-info)">6 июл<br>Вс</div>
+    <div><div class="dt">Парки, библиотека, Октябрьская</div><div class="ds">Современный Минск: зелень, панорама и арт</div></div>
+  </div>
+  <div class="body">
+    <div class="slot">
+      <span class="st">10:00</span><i class="ti ti-bike si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Парк Победы — самокаты или велики</div>
+        <div class="sd">Огромный лесопарк у воды. Самокаты берите через приложение Bolt или Whoosh прямо у входа.</div>
+        <div class="cost">~1 BYN старт + 0,05 BYN/мин каждый (~200 ₽ за час на двоих)</div>
+        <div class="contacts">
+          <a class="ctag" href="https://apps.apple.com/app/bolt/id675033630" target="_blank" rel="noopener noreferrer"><i class="ti ti-app-window"></i>Bolt (самокаты)</a>
+          <a class="maplink" href="https://yandex.by/maps/?rtext=53.910724,27.518821~53.923405,27.535863&rtt=mt" target="_blank" rel="noopener noreferrer"><i class="ti ti-map-2"></i>Дом → парк Победы</a>
+        </div>
+      </div>
+    </div>
+    <div class="slot">
+      <span class="st">12:00</span><i class="ti ti-building-library si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Национальная библиотека — смотровая</div>
+        <div class="sd">«Бриллиант» — панорама города с 23 этажа. Метро до Восток. Смотровая открыта ежедневно.</div>
+        <div class="cost">Вход ~5 BYN/чел (~280 ₽ на двоих)</div>
+        <div class="contacts">
+          <a class="ctag" href="https://nlb.by" target="_blank" rel="noopener noreferrer"><i class="ti ti-world"></i>nlb.by</a>
+          <a class="ctag" href="tel:+375173683737"><i class="ti ti-phone"></i>+375 17 368-37-37</a>
+          <a class="maplink" href="https://yandex.by/maps/?rtext=53.923405,27.535863~53.931471,27.646156&rtt=mt" target="_blank" rel="noopener noreferrer"><i class="ti ti-map-2"></i>Парк → Библиотека</a>
+        </div>
+      </div>
+    </div>
+    <div class="slot">
+      <span class="st">14:00</span><i class="ti ti-tools-kitchen si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Обед — Дэпо №2 или Тёрка</div>
+        <div class="sd">Быстро и по-человечески. Рядом с Зыбицкой и Октябрьской.</div>
+        <div class="cost">~15–20 BYN на двоих (~500 ₽)</div>
+      </div>
+    </div>
+    <div class="slot">
+      <span class="st">16:00</span><i class="ti ti-palette si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Октябрьская улица — граффити и арт-цеха</div>
+        <div class="sd">Бывшие заводские цеха. Граффити, инсталляции, выставки. Вечером — концерты и диджей-сеты.</div>
+        <div class="cost">Вход бесплатно, концерты от 5–15 BYN</div>
+        <div class="contacts">
+          <a class="ctag" href="https://t.me/oktyabrskaya_minsk" target="_blank" rel="noopener noreferrer"><i class="ti ti-brand-telegram"></i>Октябрьская (афиша)</a>
+          <a class="maplink" href="https://yandex.by/maps/?rtext=53.931471,27.646156~53.890132,27.574631&rtt=mt" target="_blank" rel="noopener noreferrer"><i class="ti ti-map-2"></i>Библиотека → Октябрьская</a>
+        </div>
+      </div>
+    </div>
+    <div class="slot">
+      <span class="st">21:00</span><i class="ti ti-music si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Ночь на Октябрьской</div>
+        <div class="sd">Техно, фанк или живая музыка — смотреть афишу заранее. Публика творческая, вход 0–15 BYN.</div>
+        <div class="contacts">
+          <a class="maplink" href="https://yandex.by/maps/?rtext=53.890132,27.574631~53.906336,27.557619&rtt=pd" target="_blank" rel="noopener noreferrer"><i class="ti ti-map-2"></i>Октябрьская → Зыбицкая</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 7 июля -->
+<div class="day">
+  <div class="dh">
+    <div class="db" style="background:var(--color-background-success);color:var(--color-text-success)">7 июл<br>Пн</div>
+    <div><div class="dt">Мирский + Несвижский замки</div><div class="ds">Вылазка за город. Выехать к 9:00, вернуться к 20:00</div></div>
+  </div>
+  <div class="body">
+    <div class="slot">
+      <span class="st">9:00</span><i class="ti ti-bus si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Автобус Минск → Мир</div>
+        <div class="sd">Центральный автовокзал, ул. Бобруйская 6 (метро Площадь Ленина). Билеты лучше купить онлайн заранее через ticketbus.by или прямо на кассе утром в понедельник — народу меньше.</div>
+        <div class="cost">~10–13 BYN/чел (~700 ₽ туда-обратно на двоих)</div>
+        <div class="contacts">
+          <a class="ctag" href="https://ticketbus.by" target="_blank" rel="noopener noreferrer"><i class="ti ti-world"></i>ticketbus.by</a>
+          <a class="ctag" href="https://intercity.by" target="_blank" rel="noopener noreferrer"><i class="ti ti-world"></i>intercity.by</a>
+          <a class="maplink" href="https://yandex.by/maps/?rtext=53.910724,27.518821~53.892894,27.547886&rtt=mt" target="_blank" rel="noopener noreferrer"><i class="ti ti-map-2"></i>Дом → Автовокзал</a>
+        </div>
+      </div>
+    </div>
+    <div class="slot">
+      <span class="st">10:30</span><i class="ti ti-building-castle si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Мирский замок <span class="badge b-tip">ЮНЕСКО</span></div>
+        <div class="sd">Замок XVI века. Внутри — музей, экспозиции, подземелье. Снаружи — ров, пруд. 2–3 часа.</div>
+        <div class="cost">Вход ~15 BYN/чел (~840 ₽ на двоих). Онлайн-билеты дешевле.</div>
+        <div class="contacts">
+          <a class="ctag" href="https://mirzamak.by" target="_blank" rel="noopener noreferrer"><i class="ti ti-world"></i>mirzamak.by</a>
+          <a class="ctag" href="tel:+375163542712"><i class="ti ti-phone"></i>+375 1635 4-27-12</a>
+        </div>
+      </div>
+    </div>
+    <div class="slot">
+      <span class="st">13:30</span><i class="ti ti-bus si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Маршрутка Мир → Несвиж</div>
+        <div class="sd">Ходит несколько раз в день, ~40–50 минут. Отправление от автостанции Мир (рядом с замком).</div>
+        <div class="cost">~5 BYN/чел (~280 ₽ на двоих)</div>
+      </div>
+    </div>
+    <div class="slot">
+      <span class="st">14:30</span><i class="ti ti-building-castle si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Несвижский замок <span class="badge b-tip">ЮНЕСКО</span></div>
+        <div class="sd">Резиденция Радзивиллов. Парк, пруды, дворцовые залы. 2–2,5 часа.</div>
+        <div class="cost">Вход ~15 BYN/чел (~840 ₽ на двоих). Билеты лучше купить онлайн.</div>
+        <div class="contacts">
+          <a class="ctag" href="https://niasvizh.by" target="_blank" rel="noopener noreferrer"><i class="ti ti-world"></i>niasvizh.by</a>
+          <a class="ctag" href="tel:+375177702601"><i class="ti ti-phone"></i>+375 1770 2-26-01</a>
+        </div>
+      </div>
+    </div>
+    <div class="slot">
+      <span class="st">18:00</span><i class="ti ti-bus si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Автобус Несвиж → Минск</div>
+        <div class="sd">Прямой рейс до Центрального АВ, ~1,5 часа. Расписание уточнять на автостанции.</div>
+        <div class="cost">~10 BYN/чел (~560 ₽ на двоих)</div>
+        <div class="contacts">
+          <a class="maplink" href="https://yandex.by/maps/?rtext=53.224,26.697~53.892894,27.547886&rtt=auto" target="_blank" rel="noopener noreferrer"><i class="ti ti-map-2"></i>Несвиж → Минск АВ</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 8 июля -->
+<div class="day">
+  <div class="dh">
+    <div class="db" style="background:var(--color-background-danger);color:var(--color-text-danger)">8 июл<br>Вт</div>
+    <div><div class="dt">День активного отдыха</div><div class="ds">Вейкборд, SUP, пляж на Цнянке</div></div>
+  </div>
+  <div class="body">
+    <div class="slot">
+      <span class="st">10:30</span><i class="ti ti-ripple si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Wake Line Minsk — вейкборд и SUP <span class="badge b-act">запись обязательна</span></div>
+        <div class="sd">Цнянское водохранилище. Реверсивная канатная дорога — новичков берут, инструктаж включён. Записываться заранее в телеграм или по телефону.</div>
+        <div class="cost">30 мин вейк ~35 BYN/чел · SUP-серф ~30 BYN/час · итого на двоих ~130–150 BYN (~4 000 ₽)</div>
+        <div class="contacts">
+          <a class="ctag" href="https://wakeline.by" target="_blank" rel="noopener noreferrer"><i class="ti ti-world"></i>wakeline.by</a>
+          <a class="ctag" href="https://t.me/wakelineminsk" target="_blank" rel="noopener noreferrer"><i class="ti ti-brand-telegram"></i>@wakelineminsk</a>
+          <a class="ctag" href="tel:+375297333368"><i class="ti ti-phone"></i>+375 29 733-33-68</a>
+          <a class="maplink" href="https://yandex.by/maps/?rtext=53.910724,27.518821~53.940000,27.637000&rtt=auto" target="_blank" rel="noopener noreferrer"><i class="ti ti-map-2"></i>Дом → Wake Line (Цнянка)</a>
+        </div>
+      </div>
+    </div>
+    <div class="slot">
+      <span class="st">13:00</span><i class="ti ti-sun si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Пляж, купание, барбекю-зона</div>
+        <div class="sd">После катания — остаться на берегу. На территории парка есть зоны барбекю и кафе.</div>
+        <div class="cost">Кафе ~20 BYN на двоих (~560 ₽)</div>
+      </div>
+    </div>
+    <div class="slot">
+      <span class="st">19:00</span><i class="ti ti-home si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Возвращение домой, отдых</div>
+        <div class="sd">После активного дня — лёгкий ужин у дома или доставка. Заслуженный отдых.</div>
+        <div class="cost">Яндекс Go до дома ~10–12 BYN (~320 ₽)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 9 июля -->
+<div class="day">
+  <div class="dh">
+    <div class="db" style="background:var(--color-background-warning);color:var(--color-text-warning)">9 июл<br>Ср</div>
+    <div><div class="dt">Хатынь и Линия Сталина</div><div class="ds">Историческая вылазка, такси на полдня</div></div>
+  </div>
+  <div class="body">
+    <div class="slot">
+      <span class="st">10:00</span><i class="ti ti-car si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Такси до Хатыни <span class="badge b-act">лучше заказать заранее</span></div>
+        <div class="sd">60 км. Удобнее всего договориться с водителем Яндекс Go на ожидание, или взять такси с почасовой оплатой. Можно уехать с экскурсионным автобусом — дешевле, но жёсткое расписание.</div>
+        <div class="cost">Такси туда ~50–60 BYN (~1 600 ₽) или экскурсия от 25–30 BYN/чел</div>
+        <div class="contacts">
+          <a class="ctag" href="https://sputnik8.com/ru/minsk/" target="_blank" rel="noopener noreferrer"><i class="ti ti-world"></i>Экскурсии sputnik8.com</a>
+          <a class="maplink" href="https://yandex.by/maps/?rtext=53.910724,27.518821~54.335000,27.630000&rtt=auto" target="_blank" rel="noopener noreferrer"><i class="ti ti-map-2"></i>Дом → Хатынь</a>
+        </div>
+      </div>
+    </div>
+    <div class="slot">
+      <span class="st">11:30</span><i class="ti ti-flame si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Мемориал Хатынь</div>
+        <div class="sd">Памятник сожжённым деревням Беларуси. Тихое, очень сильное место. ~1,5–2 часа.</div>
+        <div class="cost">Вход бесплатно <span class="badge b-free">free</span></div>
+        <div class="contacts">
+          <a class="ctag" href="https://khatyn.by" target="_blank" rel="noopener noreferrer"><i class="ti ti-world"></i>khatyn.by</a>
+        </div>
+      </div>
+    </div>
+    <div class="slot">
+      <span class="st">14:00</span><i class="ti ti-tank si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">«Линия Сталина» — 30 км от Минска</div>
+        <div class="sd">Военно-исторический комплекс: танки, бункеры, стрельбище. Интерактивно и зрелищно. Такси от Хатыни ~25–30 BYN.</div>
+        <div class="cost">Вход ~15 BYN/чел (~840 ₽ на двоих)</div>
+        <div class="contacts">
+          <a class="ctag" href="https://stalin-line.by" target="_blank" rel="noopener noreferrer"><i class="ti ti-world"></i>stalin-line.by</a>
+          <a class="ctag" href="tel:+375172990580"><i class="ti ti-phone"></i>+375 17 299-05-80</a>
+          <a class="maplink" href="https://yandex.by/maps/?rtext=54.335000,27.630000~53.983000,27.215000&rtt=auto" target="_blank" rel="noopener noreferrer"><i class="ti ti-map-2"></i>Хатынь → Линия Сталина</a>
+        </div>
+      </div>
+    </div>
+    <div class="slot">
+      <span class="st">18:00</span><i class="ti ti-arrow-back si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Такси обратно в Минск</div>
+        <div class="sd">От Линии Сталина до центра ~30 км, ~20–25 BYN.</div>
+        <div class="contacts">
+          <a class="maplink" href="https://yandex.by/maps/?rtext=53.983000,27.215000~53.910724,27.518821&rtt=auto" target="_blank" rel="noopener noreferrer"><i class="ti ti-map-2"></i>Линия Сталина → домой</a>
+        </div>
+      </div>
+    </div>
+    <div class="slot">
+      <span class="st">20:30</span><i class="ti ti-beer si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Ужин или бар на Зыбицкой</div>
+        <div class="sd">По настроению — ресторан или просто бар. День насыщенный, не переусердствовать.</div>
+        <div class="cost">~25–35 BYN на двоих (~850 ₽)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 10 июля -->
+<div class="day">
+  <div class="dh">
+    <div class="db" style="background:var(--color-background-warning);color:var(--color-text-warning)">10 июл<br>Чт</div>
+    <div><div class="dt">Комаровка, финальный вечер</div><div class="ds">Рынок, столовая, прощальный вечер на двух улицах</div></div>
+  </div>
+  <div class="body">
+    <div class="slot">
+      <span class="st">10:30</span><i class="ti ti-shopping-bag si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Комаровский рынок</div>
+        <div class="sd">Колоритный крытый рынок — белорусские сыры, мёд, ягоды, драники. Живая атмосфера, люди на все возрасты.</div>
+        <div class="cost">~10–15 BYN на двоих (~400 ₽)</div>
+        <div class="contacts">
+          <a class="maplink" href="https://yandex.by/maps/?rtext=53.910724,27.518821~53.909000,27.566000&rtt=mt" target="_blank" rel="noopener noreferrer"><i class="ti ti-map-2"></i>Дом → Комаровка</a>
+        </div>
+      </div>
+    </div>
+    <div class="slot">
+      <span class="st">13:00</span><i class="ti ti-knife si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Обед — Столовая №12</div>
+        <div class="sd">Советская столовая у Купаловской. Самый честный обед города — куда ходят сами минчане.</div>
+        <div class="cost">~14–16 BYN на двоих (~420 ₽)</div>
+        <div class="contacts">
+          <a class="maplink" href="https://yandex.by/maps/?rtext=53.909000,27.566000~53.901000,27.557000&rtt=pd" target="_blank" rel="noopener noreferrer"><i class="ti ti-map-2"></i>Комаровка → Столовая №12</a>
+        </div>
+      </div>
+    </div>
+    <div class="slot">
+      <span class="st">15:00</span><i class="ti ti-map-2 si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Свободное время</div>
+        <div class="sd">Любимые места, кофе у набережной, вернуться куда-то понравившемуся. Без программы.</div>
+      </div>
+    </div>
+    <div class="slot">
+      <span class="st">20:00</span><i class="ti ti-confetti si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Финальный вечер — Зыбицкая + Октябрьская</div>
+        <div class="sd">Пройтись по обеим улицам. Завершить там, где больше понравилось за неделю.</div>
+        <div class="cost">~40–50 BYN на двоих (~1 300 ₽)</div>
+        <div class="contacts">
+          <a class="maplink" href="https://yandex.by/maps/?rtext=53.906336,27.557619~53.890132,27.574631&rtt=pd" target="_blank" rel="noopener noreferrer"><i class="ti ti-map-2"></i>Зыбицкая → Октябрьская</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 11 июля -->
+<div class="day">
+  <div class="dh">
+    <div class="db" style="background:var(--color-background-secondary);color:var(--color-text-secondary)">11 июл<br>Пт</div>
+    <div><div class="dt">Отъезд — рейс в 19:55</div><div class="ds">Спокойное утро и дорога в аэропорт</div></div>
+  </div>
+  <div class="body">
+    <div class="slot">
+      <span class="st">10:00</span><i class="ti ti-coffee si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Неспешное утро</div>
+        <div class="sd">Завтрак дома или кофе у набережной. Последняя прогулка по Троицкому предместью.</div>
+        <div class="cost">~8–12 BYN на двоих (~300 ₽)</div>
+      </div>
+    </div>
+    <div class="slot">
+      <span class="st">13:00</span><i class="ti ti-bowl si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Лёгкий обед в центре</div>
+        <div class="sd">Тёрка или Дэпо №2 — быстро, вкусно, без очередей в будний день.</div>
+        <div class="cost">~15 BYN на двоих (~420 ₽)</div>
+      </div>
+    </div>
+    <div class="slot">
+      <span class="st">16:30</span><i class="ti ti-car si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Такси в аэропорт</div>
+        <div class="sd">Выезжать не позже 16:30 — ехать ~45 мин, регистрация закрывается за 40 мин до вылета. Яндекс Go — заказать за час, чтобы не попасть на пик.</div>
+        <div class="cost">~30–40 BYN (~1 000 ₽)</div>
+        <div class="contacts">
+          <a class="ctag" href="https://go.yandex/" target="_blank" rel="noopener noreferrer"><i class="ti ti-car"></i>Яндекс Go</a>
+          <a class="maplink" href="https://yandex.by/maps/?rtext=53.910724,27.518821~53.882038,28.038025&rtt=auto" target="_blank" rel="noopener noreferrer"><i class="ti ti-map-2"></i>Квартира → Аэропорт Минск</a>
+        </div>
+      </div>
+    </div>
+    <div class="slot">
+      <span class="st">19:55</span><i class="ti ti-plane-departure si" aria-hidden="true"></i>
+      <div class="sm">
+        <div class="sn">Вылет домой</div>
+        <div class="sd">Пока, Минск 👋</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Бюджет -->
+<p style="font-size:15px;font-weight:500;color:var(--color-text-primary);margin:1.5rem 0 0.75rem">Итоговый бюджет на двоих</p>
+<div class="budget-grid">
+  <div class="bc"><p class="bl">Жильё (7 ночей)</p><p class="bv">21–35 тыс. ₽</p><p class="bs">3–5 тыс./ночь</p></div>
+  <div class="bc"><p class="bl">Еда (7 дней)</p><p class="bv">12–18 тыс. ₽</p><p class="bs">1 700–2 500/день</p></div>
+  <div class="bc"><p class="bl">Такси аэропорт ×2</p><p class="bv">2–2,5 тыс. ₽</p><p class="bs">туда и обратно</p></div>
+  <div class="bc"><p class="bl">Транспорт в городе</p><p class="bv">1,5–3 тыс. ₽</p><p class="bs">метро + такси</p></div>
+  <div class="bc"><p class="bl">Замки + автобусы</p><p class="bv">3–4 тыс. ₽</p><p class="bs">Мир + Несвиж</p></div>
+  <div class="bc"><p class="bl">Хатынь + Сталина</p><p class="bv">4–5 тыс. ₽</p><p class="bs">такси + входы</p></div>
+  <div class="bc"><p class="bl">Вейк + SUP</p><p class="bv">3,5–4 тыс. ₽</p><p class="bs">Wake Line</p></div>
+  <div class="bc"><p class="bl">Бары и вечера</p><p class="bv">6–9 тыс. ₽</p><p class="bs">4–5 вечеров</p></div>
+</div>
+<div class="total">
+  <span class="tl">Итого на двоих, комфортно</span>
+  <span class="tv">55–80 тыс. ₽</span>
+</div>
+<p style="font-size:11px;color:var(--color-text-tertiary);margin-top:8px">1 BYN ≈ 27–28 ₽ · Карта МИР Т-Банк обязательна · Наличных BYN на первые 2 дня: ~3 000–4 000 ₽</p>
+
+</section>
+  </main>
+  <script>
+    document.querySelectorAll('.day').forEach((card, index) => {
+      const date = ['4','5','6','7','8','9','10','11'][index];
+      if (date) card.id = 'day-' + date;
+      card.addEventListener('pointermove', (event) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--x', (event.clientX - rect.left) + 'px');
+        card.style.setProperty('--y', (event.clientY - rect.top) + 'px');
+      });
+    });
+    const budgetTitle = [...document.querySelectorAll('.program-shell > p')].find(el => el.textContent.includes('Итоговый бюджет'));
+    if (budgetTitle) budgetTitle.id = 'budget';
+  </script>
+</body>
+</html>
